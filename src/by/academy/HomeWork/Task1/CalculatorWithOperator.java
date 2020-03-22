@@ -207,8 +207,7 @@ public class CalculatorWithOperator {
 
     private void round(){
         double x = Double.parseDouble(this.expression);
-        //todo окоуглить релультат
-        //todo просто проверить гит
+        //todo окоуглить релультат до конца
         this.expression = String.valueOf(Math.round(x));
     }
 
