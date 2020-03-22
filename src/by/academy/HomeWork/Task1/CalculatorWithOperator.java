@@ -41,24 +41,25 @@ public class CalculatorWithOperator {
 //    }
 
 
-    private void findAndExecuteExpressionInSkobki() {
+    private void findAndExecuteExpressionInBracket() {
         int a = this.expression.indexOf("(");
         int b = this.expression.lastIndexOf(")");
-        String expresInSkWhithSk = this.expression.substring(a, b + 1);
-        String expresInSkWhithOutSk = expresInSkWhithSk.replaceAll("\\(|\\)", "");
+        String expresInSkWhithBracket = this.expression.substring(a, b + 1);
+        String expresInSkWhithOutBracket = expresInSkWhithBracket.replaceAll("\\(|\\)", "");
 
-        String mathSymbol = findMathSymb(expresInSkWhithOutSk);
-        int indMath = expresInSkWhithOutSk.indexOf(mathSymbol);
-        String numb1 = expresInSkWhithOutSk.substring(0, indMath).trim();
+        String mathSighn = findMathSighn(expresInSkWhithOutBracket);
+        int indMath = expresInSkWhithOutBracket.indexOf(mathSighn);
+        String numb1 = expresInSkWhithOutBracket.substring(0, indMath).trim();
         double x1 = Double.parseDouble(numb1);
-        String numb2 = expresInSkWhithOutSk.substring(indMath + 1).trim();
+        String numb2 = expresInSkWhithOutBracket.substring(indMath + 1).trim();
         double x2 = Double.parseDouble(numb2);
-        double resultInSk = executeExpr(x1, mathSymbol, x2);
+        double resultInSk = executeExpr(x1, mathSighn, x2);
         String result = String.valueOf(resultInSk);
-        this.expression = this.expression.replace(expresInSkWhithSk, result);
+        this.expression = this.expression.replace(expresInSkWhithBracket, result);
     }
 
-    private String findMathSymb(String expression) {
+    private String findMathSighn 
+            (String expression) {
         if (expression.contains("/")) {
             return "/";
         } else if (expression.contains("*")) {
@@ -98,7 +99,7 @@ public class CalculatorWithOperator {
         return result;
     }
 
-    private void findAndExecuteStepen() {
+    private void findAndExecuteDegreeOf() {
         boolean isContains = this.expression.contains("^");
         if (!isContains) {
             return;
@@ -106,15 +107,15 @@ public class CalculatorWithOperator {
         String[] myMass = this.expression.split(" ");
 
         int indMath = Arrays.asList(myMass).indexOf("^");
-        String expresWhithSt = myMass[indMath - 1] + " " + myMass[indMath] + " " + myMass[indMath + 1];
+        String expresWhithDegreeOf = myMass[indMath - 1] + " " + myMass[indMath] + " " + myMass[indMath + 1];
 
         String numb1 = myMass[indMath - 1];
         double x1 = Double.parseDouble(numb1);
         String numb2 = myMass[indMath + 1];
         double x2 = Double.parseDouble(numb2);
-        double resultInSt = executeExpr(x1, "^", x2);
-        String result = String.valueOf(resultInSt);
-        this.expression = this.expression.replace(expresWhithSt, result);
+        double resultInDegreeOf = executeExpr(x1, "^", x2);
+        String result = String.valueOf(resultInDegreeOf);
+        this.expression = this.expression.replace(expresWhithDegreeOf, result);
 
     }
 
@@ -128,26 +129,26 @@ public class CalculatorWithOperator {
 
         do {
 
-            String mathSimb;
+            String mathSighn;
 
             if (this.expression.contains("*")) {
-                mathSimb = "*";
+                mathSighn = "*";
             } else if (this.expression.contains("/")) {
-                mathSimb = "/";
+                mathSighn = "/";
             } else {
                 return;
             }
 
             String[] myMass = this.expression.split(" ");
 
-            int indMath = Arrays.asList(myMass).indexOf(mathSimb);
+            int indMath = Arrays.asList(myMass).indexOf(mathSighn);
             String expressMultOrDivide = myMass[indMath - 1] + " " + myMass[indMath] + " " + myMass[indMath + 1];
 
             String numb1 = myMass[indMath - 1];
             double x1 = Double.parseDouble(numb1);
             String numb2 = myMass[indMath + 1];
             double x2 = Double.parseDouble(numb2);
-            double resultInMultAndDiv = executeExpr(x1, mathSimb, x2);
+            double resultInMultAndDiv = executeExpr(x1, mathSighn, x2);
             String result = String.valueOf(resultInMultAndDiv);
             this.expression = this.expression.replace(expressMultOrDivide, result);
 
@@ -167,23 +168,23 @@ public class CalculatorWithOperator {
         }
         do {
             String[] myMass = this.expression.split(" ");
-            String mathSymbol;
+            String mathSighn;
             if (this.expression.contains("+")) {
-                mathSymbol = "+";
+                mathSighn = "+";
             } else if (this.expression.contains("-")) {
-                mathSymbol = "-";
+                mathSighn = "-";
             } else {
                 return;
             }
 
-            int indMath = Arrays.asList(myMass).indexOf(mathSymbol);
+            int indMath = Arrays.asList(myMass).indexOf(mathSighn);
             String expresWhithSum = myMass[indMath - 1] + " " + myMass[indMath] + " " + myMass[indMath + 1];
 
             String numb1 = myMass[indMath - 1];
             double x1 = Double.parseDouble(numb1);
             String numb2 = myMass[indMath + 1];
             double x2 = Double.parseDouble(numb2);
-            double resultInSum = executeExpr(x1, mathSymbol, x2);
+            double resultInSum = executeExpr(x1, mathSighn, x2);
             String result = String.valueOf(resultInSum);
             this.expression = this.expression.replace(expresWhithSum, result);
             isContains = this.expression.contains("+") || this.expression.contains("- ");
@@ -192,9 +193,9 @@ public class CalculatorWithOperator {
 
     public double execute() {
 //        System.out.println(this.expression);
-        findAndExecuteExpressionInSkobki();
+        findAndExecuteExpressionInBracket();
 //        System.out.println(this.expression);
-        findAndExecuteStepen();
+        findAndExecuteDegreeOf();
 //        System.out.println(this.expression);
         findAndExecuteMultiplAndDivide();
 //        System.out.println(this.expression);
@@ -211,10 +212,5 @@ public class CalculatorWithOperator {
         double result = d / 100;
         this.expression = String.valueOf(result);
     }
-
-//    public static void execute (String exp){
-//        CalculatorWithOperator calculator= new CalculatorWithOperator(exp);
-//        calculator.execute();
-//    }
 
 }
