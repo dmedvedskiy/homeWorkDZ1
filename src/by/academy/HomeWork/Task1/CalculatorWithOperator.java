@@ -151,7 +151,7 @@ public class CalculatorWithOperator {
             String result = String.valueOf(resultInMultAndDiv);
             this.expression = this.expression.replace(expressMultOrDivide, result);
 
-            isContains=this.expression.contains("*") || this.expression.contains("/");
+            isContains = this.expression.contains("*") || this.expression.contains("/");
 
         }
         while (isContains);
@@ -190,7 +190,7 @@ public class CalculatorWithOperator {
         } while (isContains);
     }
 
-    public double execute (){
+    public double execute() {
 //        System.out.println(this.expression);
         findAndExecuteExpressionInSkobki();
 //        System.out.println(this.expression);
@@ -201,14 +201,15 @@ public class CalculatorWithOperator {
         findAndExecutePlusAndMinus();
 //        System.out.println(this.expression);
         round();
-        System.out.println("\nРезультат выражения "+this.fullExpression+" = "+this.expression);
+        System.out.println("\nРезультат выражения " + this.fullExpression + " = " + this.expression);
         return Double.parseDouble(this.expression);
     }
 
-    private void round(){
+    private void round() {
         double x = Double.parseDouble(this.expression);
-        //todo окоуглить релультат до конца
-        this.expression = String.valueOf(Math.round(x));
+        double d = Math.round(x * 100); // Округление до сотых
+        double result = d / 100;
+        this.expression = String.valueOf(result);
     }
 
 //    public static void execute (String exp){
